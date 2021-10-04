@@ -1,4 +1,5 @@
 import backtrader as bt
+import yfinance as yf #<<เพิ่มส่วนี้
 from datetime import datetime
 
 class firstStrategy(bt.Strategy):
@@ -31,12 +32,15 @@ class firstStrategy(bt.Strategy):
 
 cerebro = bt.Cerebro()
 
-data = bt.feeds.YahooFinanceData(
-    dataname="BTC-USD",
-    fromdate = datetime(2020,1,1),
-    todate = datetime(2021,6,1),
-    buffered = True
-)
+# data = bt.feeds.YahooFinanceData(
+#     dataname="BTC-USD",
+#     fromdate = datetime(2020,1,1),
+#     todate = datetime(2021,6,1),
+#     buffered = True
+# )
+
+data = bt.feeds.PandasData(dataname=yf.download('BTC-USD', '2018-01-01', '2019-01-01')) #import data แบบใหม่
+
 
 cerebro.adddata(data)
 
